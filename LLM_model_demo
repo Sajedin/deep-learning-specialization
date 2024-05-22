@@ -1,0 +1,111 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOPBeuGAWkcrg1uFwoHJiCt",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Sajedin/deep-learning-specialization/blob/main/LLM_model_demo\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import torch"
+      ],
+      "metadata": {
+        "id": "9F0v8nTcIWeR"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 7,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xZCHSkHhD4mt",
+        "outputId": "89818ac9-493e-442b-bc7e-02a30a52f874"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['\\n', ' ', '!', '\"', '&', \"'\", '(', ')', '*', ',', '-', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '?', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', ']', '_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']\n"
+          ]
+        }
+      ],
+      "source": [
+        "with open('wizard_of_oz.txt', 'r', encoding='utf-8') as f:\n",
+        "  text = f.read()\n",
+        "chars = sorted(set(text))\n",
+        "print(chars)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "string_to_int = {ch:i for i , ch in enumerate(chars)}\n",
+        "int_to_string = {i:ch for i , ch in enumerate(chars)}\n",
+        "encode = lambda s:[string_to_int[c] for c in s]\n",
+        "decode = lambda l: ''.join([int_to_string[i] for i in 1])\n",
+        "\n",
+        "data = torch.tensor(encode(text), dtype=torch.long)\n"
+      ],
+      "metadata": {
+        "id": "uW_pAFp6G1ue"
+      },
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(data[:100])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5hdGSguEI1tG",
+        "outputId": "8486b3db-23e8-41e9-93be-a35a0400b159"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "tensor([ 0, 28, 39, 42, 39, 44, 32, 49,  1, 25, 38, 28,  1, 44, 32, 29,  1, 47,\n",
+            "        33, 50, 25, 42, 28,  1, 33, 38,  1, 39, 50,  0,  0,  1,  1, 26, 49,  0,\n",
+            "         0,  1,  1, 36, 11,  1, 30, 42, 25, 38, 35,  1, 26, 25, 45, 37,  0,  0,\n",
+            "         1,  1, 25, 45, 44, 32, 39, 42,  1, 39, 30,  1, 44, 32, 29,  1, 47, 33,\n",
+            "        50, 25, 42, 28,  1, 39, 30,  1, 39, 50,  9,  1, 44, 32, 29,  1, 36, 25,\n",
+            "        38, 28,  1, 39, 30,  1, 39, 50,  9,  1])\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
